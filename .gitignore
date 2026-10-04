@@ -1,0 +1,24 @@
+gitignore
+# Provider binaries and module downloads, recreated by terraform init
+.terraform/
+
+# State: can contain secrets in plain text, and must never be merged by git
+*.tfstate
+*.tfstate.*
+
+# Variable files, which are where secrets usually end up
+*.tfvars
+*.tfvars.json
+
+# Saved plans, which can also contain secrets
+*.tfplan
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Local-only overrides
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
