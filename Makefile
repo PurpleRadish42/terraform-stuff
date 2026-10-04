@@ -1,6 +1,7 @@
 IMAGE   := floci-aws
 NAME    := floci-aws
 PORT    := 4566
+ALB_PORT := 80
 UI_NAME := floci-ui
 UI_PORT := 4500
 NETWORK := floci
@@ -12,7 +13,7 @@ aws:
 	docker build -t $(IMAGE) .
 	-docker rm -f $(NAME) $(UI_NAME) 2>/dev/null
 	docker network inspect $(NETWORK) >/dev/null 2>&1 || docker network create $(NETWORK)
-	docker run -d --name $(NAME) --network $(NETWORK) -p $(PORT):4566 \
+	docker run -d --name $(NAME) --network $(NETWORK) -p $(PORT):4566 -p $(ALB_PORT):80 \
 		-u root --security-opt label=disable \
 		-v /var/run/docker.sock:/var/run/docker.sock \
 		$(IMAGE)
