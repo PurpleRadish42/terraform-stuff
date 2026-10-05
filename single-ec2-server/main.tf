@@ -16,7 +16,7 @@ resource "aws_instance" "bastion" {
 }
 
 resource "aws_security_group" "instance" {
-  name = "Terraform-stuff-instance"
+  name = "Terraform-stuff-instance-${terraform.workspace}"
 
   ingress {
     from_port   = var.server_port
@@ -38,4 +38,24 @@ variable "server_port" {
   type        = number
   default     = 8080
 
+}
+
+terraform {
+  backend "s3" {
+    bucket                      = "terraform-up-and-running-state"
+    key                         = "workspaces-example/terraform.tfstate"
+    region                      = "ap-south-1"
+    access_key                  = "test"
+    secret_key                  = "test"
+    skip_credentials_validation = true
+    skip_region_validation      = true
+    skip_requesting_account_id  = true
+    skip_metadata_api_check     = true
+    use_path_style              = true
+    use_lockfile                = true
+
+    endpoints = {
+      s3 = "http://localhost:4566"
+    }
+  }
 }
