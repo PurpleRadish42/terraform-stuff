@@ -47,6 +47,8 @@ make aws-down
 
 Deploy one project at a time: they all share one emulated VPC, so resource names can clash.
 
+Floci runs in persistent storage mode with its data in the `floci-data` Docker volume, so S3 buckets (including Terraform state) survive `make aws-down` and a reboot. To start from an empty emulator, run `docker volume rm floci-data` after `make aws-down`.
+
 ## License
 
 [Apache License 2.0](LICENSE)

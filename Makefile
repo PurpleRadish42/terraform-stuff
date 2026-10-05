@@ -5,6 +5,7 @@ ALB_PORT := 80
 UI_NAME := floci-ui
 UI_PORT := 4500
 NETWORK := floci
+VOLUME  := floci-data
 REGION  := ap-south-1
 
 .PHONY: aws aws-down
@@ -16,6 +17,7 @@ aws:
 	docker run -d --name $(NAME) --network $(NETWORK) -p $(PORT):4566 -p $(ALB_PORT):80 \
 		-u root --security-opt label=disable \
 		-v /var/run/docker.sock:/var/run/docker.sock \
+		-v $(VOLUME):/app/data \
 		$(IMAGE)
 	docker run -d --name $(UI_NAME) --network $(NETWORK) -p $(UI_PORT):4500 \
 		-e FLOCI_ENDPOINT=http://$(NAME):4566 -e AWS_REGION=$(REGION) \

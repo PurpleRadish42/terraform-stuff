@@ -1,5 +1,6 @@
 FROM floci/floci:latest
 
 ENV FLOCI_DEFAULT_REGION=ap-south-1
+ENV FLOCI_STORAGE_MODE=persistent
 
 EXPOSE 4566
